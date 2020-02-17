@@ -9,6 +9,7 @@ type User struct {
 	ControllerHandler
 	RepositoryHandler
 }
+
 type Blog struct{
 	ControllerHandler
 	RepositoryHandler
