@@ -1,45 +1,11 @@
 package main
 
 import (
+	"github.com/jeremylombogia/dewa/blog"
+	"github.com/jeremylombogia/dewa/user"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
-
-type User struct {
-	ControllerHandler
-	RepositoryHandler
-}
-
-type Blog struct{
-	ControllerHandler
-	RepositoryHandler
-}
-
-type ControllerHandler interface {
-	Get(c echo.Context) error
-	Post(c echo.Context) error
-}
-
-type RepositoryHandler interface {
-	Select() interface{}
-	Insert() interface{}
-}
-
-func (u User) Get(c echo.Context) error {
-	return c.String(200, "OK")
-}
-
-func (u User) Post(c echo.Context) error {
-	return c.String(200, "OK")
-}
-
-func (b Blog) Get(c echo.Context) error {
-	return c.String(200, "OK")
-}
-
-func (b Blog) Post(c echo.Context) error {
-	return c.String(200, "OK")
-}
 
 func main() {
 	e := echo.New()
@@ -47,17 +13,20 @@ func main() {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
-	e.GET("/user", User{}.Get)
-	e.POST("/user", User{}.Post)
-
-	e.GET("/blog", Blog{}.Get)
-	e.POST("/blog", Blog{}.Post)
-
 	e.GET("/", HelloWorld)
+
+	e.GET("/user", user.User{}.Get)
+	e.POST("/user", user.User{}.Post)
+
+	e.GET("/blog", blog.Blog{}.Get)
+	e.POST("/blog", blog.Blog{}.Post)
 
 	e.Start(":1323")
 }
 
+// HelloWorld is index for Dewa
+// to prevent denied access ping check
+// for some cloud
 func HelloWorld(c echo.Context) error {
 	return c.String(200, "OK!")
 }

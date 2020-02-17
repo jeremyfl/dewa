@@ -1,4 +1,4 @@
-module github.com/jeremylombogia/experiment-interface
+module github.com/jeremylombogia/dewa
 
 go 1.13
 
